@@ -80,6 +80,18 @@ public class LinkedList {
         newNode.next = temp.next;
         temp.next = newNode;
     }
+    
+    public static void removeLast(Node head){
+        Node temp = head;
+        while(temp.next.next!= null){
+            temp = temp.next;
+        }
+        temp.next = null;
+    }
+    
+    // public static void reverseDataIterative(Node head){
+
+    // }
 
     public static void main(String [] args){
         Node head = new Node();
@@ -97,6 +109,9 @@ public class LinkedList {
         addAt(head, 66 , 2 );
         addAt(head, 98 , 2 );
         display(head);
+        removeLast(head);
+        display(head);
+        // reverseDataIterative(head);
     }
  }
 
