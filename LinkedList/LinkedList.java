@@ -89,9 +89,76 @@ public class LinkedList {
         temp.next = null;
     }
     
-    // public static void reverseDataIterative(Node head){
+    public static int size(Node head){
+        int size = 1;
+        Node temp = head;
+        while(temp.next != null){
+            temp = temp.next;
+            size++;
+        }
+        return size;
 
-    // }
+    }
+
+    public static Node getNodeAt(Node head, int index){
+        Node temp = head;
+        for (int i = 0; i < index; i++) { // Change the loop condition
+            if (temp != null) { // Check if temp is not null before accessing its next node
+                temp = temp.next;
+            } else {
+                break; // If temp is null, break the loop to avoid NullPointerException
+        }
+    }
+    return temp;
+    }
+
+    public static void reverseDataIterative(Node head) {
+        int leftIndex = 0;
+        int rightIndex = size(head)-1;
+        while (leftIndex <= rightIndex) {
+            Node left = getNodeAt(head, leftIndex);
+            Node right = getNodeAt(head, rightIndex);
+            int temp = left.data;
+            left.data = right.data;
+            right.data = temp;
+            leftIndex++;
+            rightIndex--;
+        }
+        display(head);
+    }
+
+    public static void reversePointerIterative(Node head){
+        Node prev = null;
+        Node curr = head;
+        while(curr != null){
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev; // Update the head to point to the new first node
+        display(head);
+    }  
+
+    public static void removeAt(Node head, int index){
+        if (head == null) {
+            return; // Handle empty list case
+        }
+    
+        if (index == 0) {
+            head = head.next;
+            return; // Handle removing the head node
+        }
+    
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            if (temp == null || temp.next == null) {
+                return; // Early exit if temp or temp.next is null
+            }
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+    }
 
     public static void main(String [] args){
         Node head = new Node();
@@ -109,9 +176,15 @@ public class LinkedList {
         addAt(head, 66 , 2 );
         addAt(head, 98 , 2 );
         display(head);
+        System.out.println(size(head));
         removeLast(head);
         display(head);
-        // reverseDataIterative(head);
+        System.out.println(size(head));
+        reverseDataIterative(head);
+        // reversePointerIterative(head);
+        removeAt(head, 3);
+        System.out.println(size(head));
+        display(head);
     }
  }
 
