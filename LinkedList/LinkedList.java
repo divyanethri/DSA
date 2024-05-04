@@ -29,6 +29,11 @@ public class LinkedList {
             temp = temp.next;
         
         }
+        System.out.println();
+    }
+
+    public static Node removeFirst(Node head){
+        return head.next;
     }
 
     public static void getFirst(Node head){
@@ -56,6 +61,26 @@ public class LinkedList {
         System.out.println(temp.data);
     }
 
+    public static Node addFirst(Node head, int val){
+        Node newNode = new Node();
+        newNode.data = val;
+        newNode.next = head;
+        return newNode;
+    }
+    
+    public static void addAt(Node head, int val, int index){
+        Node temp = head;
+        Node newNode = new Node();
+        for(int i =0; i< index-1; i++){
+            if(temp.next!= null){
+                temp = temp.next;
+            }
+        }
+        newNode.data = val;
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
     public static void main(String [] args){
         Node head = new Node();
         addLast(head, 10);
@@ -63,12 +88,15 @@ public class LinkedList {
         addLast(head, 3);
         addLast(head, 5);
         display(head);
-        head = head.next;
-        // display(head);
-        // head = head.next;
+        head =  removeFirst(head); //Remove First;
         getFirst(head);
         getLast(head);
         getAt(head, 2);
+        head = addFirst(head, 45);
+        display(head);
+        addAt(head, 66 , 2 );
+        addAt(head, 98 , 2 );
+        display(head);
     }
  }
 
