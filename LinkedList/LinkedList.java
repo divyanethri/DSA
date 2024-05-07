@@ -1,14 +1,8 @@
 package LinkedList;
 
 public class LinkedList {
-    public static void addLast(Node head, int val){
-        if (head == null) {
-            // If the list is empty, set head to the new node
-            head = new Node();
-            head.data = val;
-            head.next = null;
-        } else {
-            // Otherwise, traverse the list to find the last node
+    public static Node addLast(Node head, int val){
+      
             Node temp = head;
             while (temp.next != null) {
                 temp = temp.next;
@@ -18,7 +12,7 @@ public class LinkedList {
             newNode.data = val;
             newNode.next = null;
             temp.next = newNode;
-        }
+        return head;
     }
 
     public static void display(Node head){
@@ -33,14 +27,15 @@ public class LinkedList {
     }
 
     public static Node removeFirst(Node head){
-        return head.next;
+        head = head.next;
+        return head;
     }
 
-    public static void getFirst(Node head){
-        System.out.println(head.data);
+    public static Node getFirst(Node head){
+        return head;
     }
 
-    public static void getLast(Node head){
+    public static Node getLast(Node head){
         Node temp = head;
         while(temp!=null){
             if(temp.next == null){
@@ -48,7 +43,8 @@ public class LinkedList {
             }
             temp = temp.next;
         }
-        System.out.println(temp.data);
+        return temp;
+        // System.out.println(temp.data);
     }
     
     public static void getAt(Node head, int idx){
@@ -107,9 +103,9 @@ public class LinkedList {
                 temp = temp.next;
             } else {
                 break; // If temp is null, break the loop to avoid NullPointerException
-        }
+            }
     }
-    return temp;
+        return temp;
     }
 
     public static void reverseDataIterative(Node head) {
@@ -151,7 +147,7 @@ public class LinkedList {
         }
     
         Node temp = head;
-        for (int i = 0; i < index - 1; i++) {
+        for (int i = 0; i < index-1 ; i++) {
             if (temp == null || temp.next == null) {
                 return; // Early exit if temp or temp.next is null
             }
@@ -160,33 +156,142 @@ public class LinkedList {
         temp.next = temp.next.next;
     }
 
+    public static void stackUsingLL(){
+
+    }
+
+    // public static void queueUsingLL(){
+
+    // }
+
+    public static void kthEleFromEnd(Node head,int k ){
+        Node slow = head;
+        Node fast = head;
+        for(int i=0; i<k; i++){
+            fast = fast.next;// to get the k difference between slow and fast. 
+            // so when fast pointer point last node slow points will be pointing to last kth element ;
+        }
+        while(fast != null){
+            slow= slow.next;
+            fast= fast.next;
+        }
+       System.out.println(slow.data);
+    }
+
+    public static Node  push(Node head , int val) {
+       return  addFirst(head, val);
+    } 
+
+    public static Node peek(Node head) {
+        return getFirst(head);
+    }
+
+    public static Node pop(Node head) {
+       return removeFirst(head);
+    } 
+
+    public static int  stackSize(Node head) {
+       return size(head);
+    }
+    
+    public static void enQueue(Node head, int val){
+          addLast(head, val);
+          Node temp = getLast(head);
+          System.out.println(temp.data);
+    }
+
+    public static void deQueue(Node head){
+        removeFirst(head);
+        display(head);
+    }
+
+    public static void middleOfLL(Node head){
+        Node slow = head;
+        Node fast = head;
+        while(fast.next !=null && fast.next.next !=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        System.out.println(slow.data);
+    
+    }
+
+    public static void mergeSort(Node head, Node head2){
+        Node one = head;
+        Node two = head2;
+        Node res = new Node();
+        while(one !=null && two != null){
+            if(one.data < two.data){
+                System.out.println("working");
+                res = addLast(res, one.data);
+                one = one.next;
+            }
+            else{
+                res = addLast(res, two.data);
+                two= two.next;
+            }
+        }
+        while(one!=null){
+            res = addLast(head2, one.data);
+        }
+        while(two!=null){
+            res= addLast(head2, two.data);
+        }
+        display(res);
+    }
+
     public static void main(String [] args){
         Node head = new Node();
+        Node head2 = new Node();
         addLast(head, 10);
         addLast(head, 8);
         addLast(head, 3);
         addLast(head, 5);
         display(head);
-        head =  removeFirst(head); //Remove First;
-        getFirst(head);
-        getLast(head);
-        getAt(head, 2);
-        head = addFirst(head, 45);
-        display(head);
-        addAt(head, 66 , 2 );
-        addAt(head, 98 , 2 );
-        display(head);
-        System.out.println(size(head));
-        removeLast(head);
-        display(head);
-        System.out.println(size(head));
-        reverseDataIterative(head);
-        // reversePointerIterative(head);
-        removeAt(head, 3);
-        System.out.println(size(head));
-        display(head);
+
+        addLast(head2, 88);
+        addLast(head2, 98);
+        addLast(head2, 78);
+        addLast(head2, 67);
+        addLast(head2, 45);
+        display(head2);
+        // head =  removeFirst(head); //Remove First;
+        // getFirst(head);
+        // getLast(head);
+        // getAt(head, 2);
+        // head = addFirst(head, 45);
+        // display(head);
+        // addAt(head, 66 , 2 );
+        // addAt(head, 98 , 2 );
+        // display(head);
+        // System.out.println(size(head));
+        // removeLast(head);
+        // display(head);
+        // System.out.println(size(head));
+        // reverseDataIterative(head);
+        // // reversePointerIterative(head);
+        // removeAt(head, 3);
+        // System.out.println(size(head));
+        // display(head);
+        // System.out.println(peek(head).data);
+        // System.out.println(stackSize(head));
+        // head = push(head, 55);
+        // display(head);
+        // head = pop(head);
+        // display(head);
+        // System.out.println(peek(head).data);
+        // System.out.println(stackSize(head));
+        // enQueue(head, 65);
+        // deQueue(head);
+        // // queueUsingLL();
+        // kthEleFromEnd(head, 3);
+        // display(head);
+        // middleOfLL(head);
+         mergeSort(head, head2);
+       
     }
  }
+
 
 class Node{
     int data;
